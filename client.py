@@ -10,7 +10,7 @@ def keyval_get(key):
         print("Error: key ", key, " has no value!")
         return
     elif response.status_code == 200:
-        print("Value of ", key, " is ", response.json()["output"])
+        print("Value of ", key, " is ", response.json()["value"])
         return
     else:
         print("Error: HTTP request responded with status code ", response.status_code)
