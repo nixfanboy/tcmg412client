@@ -1,5 +1,6 @@
 import requests
 import sys
+from slack import WebClient
 
 API_HOST = "35.192.209.218:5000"
 
@@ -23,7 +24,19 @@ def factorial(num):
     return
     
 def slack_alert(message):
-    return
+    response = SLACK_APP.chat_postMessage(channel='#testing-day', text=message)
+    return jsonify(input=message, output=response["ok"])
+
+if __name__ == "__main__":
+    print("Attempting to read Slack App Key from slack.key file...")
+    SLACK_KEY = None
+    for l in open("slack.key"):
+        SLACK_KEY = l.replace(" ", "")
+    if SLACK_KEY == None or len(SLACK_KEY) < 55:
+        print("ERROR: Could not read Slack App Key from slack.key file!")
+    else:
+        print("Connecting to Slack App with Key ", SLACK_KEY)
+        SLACK_APP = WebClient(SLACK_KEY)
 
 def print_help():
     print("Format: ./client.py COMMAND <Args>")
