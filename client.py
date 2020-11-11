@@ -15,6 +15,17 @@ def keyval_get(key):
     else:
         print("Error: HTTP request responded with status code ", response.status_code)
 
+def keyval_del(key):
+    response = requests.delete(API_HOST + "/keyval/" + key)
+    if response.status_code == 409:
+        print("Error: key ", key, " has no value already!")
+        return
+    elif response.status_code == 200:
+        print("Key ", key, " deleted!")
+        return
+    else:
+        print("Error: HTTP request responded with status code ", response.status_code)
+
 def keyval_set(key, val):
     return
 
@@ -37,7 +48,7 @@ def print_help():
     print("Format: ./client.py COMMAND <Args>")
     print("COMMAND options:")
     print("-- val: Gets or Sets values from database.")
-    print("        Valid Args: GET <key>, SET <key> <value>")
+    print("        Valid Args: GET <key>, SET <key> <value>, DEL <key>")
     print("-- md5: Hashes input string using md5.")
     print("        Valid Args: <string to hash>")
     print("-- isprime: Tests if an integer is prime.")
@@ -57,12 +68,15 @@ if len(sys.argv) < 3:
 COMMAND = sysv.args[1:]
 
 if COMMAND[0].lower() == "val":
-    if len(COMMAND) == 2:
-        keyval_get(COMMAND[1])
-    elif len(COMMAND) == 3:
-        keyval_set(COMMAND[1], COMMAND[2])
+    if len(COMMAND) == 3:
+        if COMMAND[1].lower() == "get":
+            keyval_get(COMMAND[2])
+        elif COMMAND[1].lower() == "del":
+            keyval_del(COMMAND[2])
+    elif len(COMMAND) == 4 and COMMAND[1].lower() == "set":
+        keyval_set(COMMAND[2], COMMAND[3])
     else:
-        print("Error: Incorrect number of arguments")
+        print("Error: Incorrect number of arguments or invalid command!")
     return # make sure inputs are valid then call method, which would call the API using the requests module (see link in slack) then report the result from the API to the user.
 elif COMMAND[0].lower() == "md5":
     return
