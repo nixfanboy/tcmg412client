@@ -5,7 +5,13 @@ API_HOST = "35.192.209.218:5000"
 
 # Functions
 def keyval_get(key):
-    return
+    response = requests.get(API_HOST + "/keyval/" + key)
+    if response.status_code == 409:
+        print("Error: key ", key, " has no value!")
+        return
+    else:
+        print("Value of ", key, " is ", response.json()["output"])
+        return
 
 def keyval_set(key, val):
     return
@@ -49,6 +55,12 @@ if len(sys.argv) < 3:
 COMMAND = sysv.args[1:]
 
 if COMMAND[0].lower() == "val":
+    if len(COMMAND) == 2:
+        keyval_get(COMMAND[1])
+    elif len(COMMAND) == 3:
+        keyval_set(COMMAND[1], COMMAND[2])
+    else:
+        print("Error: Incorrect number of arguments")
     return # make sure inputs are valid then call method, which would call the API using the requests module (see link in slack) then report the result from the API to the user.
 elif COMMAND[0].lower() == "md5":
     return
