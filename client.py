@@ -59,6 +59,8 @@ elif COMMAND[0].lower() == "fib":
 elif COMMAND[0].lower() == "fac":
     return
 elif COMMAND[0].lower() == "slack":
+    t = requests.post(f'http://{API_HOST}/slack_alert/{message}')
+    print(t.json())
     return
 else:
     print_help()
