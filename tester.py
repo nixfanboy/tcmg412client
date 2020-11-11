@@ -64,6 +64,18 @@ for k in keyval_tests.keys():
        print("\t\tFailure, got value ", val, " instead of ", expected)
    else:
      print("\t\tFailure, got response code ", resp.response_code)
+
+  for k in keyval_tests.keys():
+    total_tests += 1
+    resp = requests.get(API_HOST + "/keyval/" + k)
+   val = resp.json()["value"]
+   expected = keyval_tests[k]
+   print("Deleting Key: ", k, "...")
+   if resp.response_code == 200:
+     passed_tests += 1
+     print("\t\tSuccess!")
+   else:
+     print("\t\tFailure, got response code ", resp.response_code)
   
 print("\nStarting md5 tests...")
 for k in md5_tests.keys():
