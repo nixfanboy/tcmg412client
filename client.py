@@ -1,7 +1,7 @@
 import requests
 import sys
 
-API_HOST = "35.192.209.218:5000"
+API_HOST = "http://35.192.209.218:5000"
 
 # Functions
 def keyval_get(key):
