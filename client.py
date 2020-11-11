@@ -9,9 +9,11 @@ def keyval_get(key):
     if response.status_code == 409:
         print("Error: key ", key, " has no value!")
         return
-    else:
+    elif response.status_code == 200:
         print("Value of ", key, " is ", response.json()["output"])
         return
+    else:
+        print("Error: HTTP request responded with status code ", response.status_code)
 
 def keyval_set(key, val):
     return
