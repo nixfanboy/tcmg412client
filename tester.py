@@ -162,4 +162,4 @@ for k in fib_tests.keys():
 
 print("\n\nTOTAL TESTS PASSED: ", str(passed_tests), "/", str(total_tests), " = ", str((passed_tests / total_tests)*100), "%")
 
-return (total_tests - passed_tests)
+exit(total_tests - passed_tests)
