@@ -98,8 +98,7 @@ if COMMAND[0].lower() == "val":
         keyval_set(COMMAND[2], COMMAND[3])
     else:
         print("Error: Incorrect number of arguments or invalid command!")
-      return # make sure inputs are valid then call method, which would call the API using the requests module (see link in slack) then report the result from the API to the user.
-
+     
 elif COMMAND[0].lower() == "md5":
     md5(COMMAND[1])
 
