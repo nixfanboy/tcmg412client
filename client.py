@@ -27,6 +27,19 @@ def keyval_del(key):
         print("Error: HTTP request responded with status code ", response.status_code)
 
 def keyval_set(key, val):
+    resp1 = requests.get(API_HOST + "/keyval/" + str(key))
+    if resp1.status_code == 200:
+        resp2 = requests.put(API_HOST + "/keyval/" + str(key) + "/" + str(val))
+        if resp2.status_code == 200:
+            print("Replaced value ", str(resp1.json()["value"]), " with ", str(val), " for key ", str(key))
+        else:
+            print("Error: service returned code ", str(resp2.status_code))
+    else:
+        resp2 = requests.post(API_HOST + "/keyval/" + str(key) + "/" + str(val))
+        if resp2.status_code == 200:
+            print(str(key), " now has value ", str(val))
+        else:
+            print("Error: service returned code ", str(resp2.status_code))
     return
 
 def md5(str):
