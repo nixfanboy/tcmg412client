@@ -57,7 +57,7 @@ for k in keyval_tests.keys():
     print("Getting Key: ", str(k), ", expecting ", str(expected), "...")
     if resp.status_code == 200:
         val = resp.json()["value"]
-        if val == expected:
+        if val == str(expected):
             passed_tests += 1
             print("\t\tSuccess!")
         else:
